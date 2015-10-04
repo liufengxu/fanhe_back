@@ -9,7 +9,7 @@
 description:
 author: liufengxu
 date: 2015-09-19 20:49:28
-last modified: 2015-09-21 15:56:16
+last modified: 2015-10-04 23:19:21
 version:
 """
 
@@ -48,6 +48,18 @@ def paste_tag(input_file, tag_table):
             print rid, ' '.join(tag_list)
 
 
+def paste_tag_2(input_file, tag_table):
+    tag_id = build_tag_id_dict(tag_table)
+    with open(input_file) as fp:
+        for line in fp:
+            segs = line[:-1].split('\t')
+            out_list = []
+            for i in segs:
+                if i in tag_id:
+                    out_list.append(tag_id[i])
+            print ' '.join(out_list)
+
+
 def main():
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: "
                         "%(asctime)s: %(filename)s: %(lineno)d * "
@@ -55,7 +67,8 @@ def main():
                         datefmt="%Y-%m-%d %H:%M:%S")
     input_file = sys.argv[1]
     tag_table = sys.argv[2]
-    paste_tag(input_file, tag_table)
+    # paste_tag(input_file, tag_table)
+    paste_tag_2(input_file, tag_table)
 
 if __name__ == '__main__':
     main()
